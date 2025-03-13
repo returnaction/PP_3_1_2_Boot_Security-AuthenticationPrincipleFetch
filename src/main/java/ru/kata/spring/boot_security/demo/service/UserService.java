@@ -7,11 +7,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserService extends UserDetailsService {
+
     Optional<User> findByUsername(String username);
 
     void add(User user);
-
-    void updateUserDetails(Long id, String firstName, String lastName, int age, String username, String password, List<String> roles);
 
     List<User> getAll();
 
@@ -21,6 +20,7 @@ public interface UserService extends UserDetailsService {
 
     boolean delete(Long id);
 
+    void updateUserDetails(Long id, String firstName, String lastName, int age, String username, String password, List<String> roles);
     void updateUserPassword(Long id, String newPassword);
 
 }

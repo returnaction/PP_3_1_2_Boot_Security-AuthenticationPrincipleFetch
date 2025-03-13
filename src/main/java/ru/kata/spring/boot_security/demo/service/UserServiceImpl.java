@@ -3,10 +3,12 @@ package ru.kata.spring.boot_security.demo.service;
 import jakarta.transaction.Transactional;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.repository.RoleRepository;
@@ -94,18 +96,23 @@ public class UserServiceImpl implements UserService {
     }
 
     public void update(Long id, User user) {
-        Long userId = id;
-        System.out.println("User id is : " + userId);
-        User existingUser = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-        if (!user.getPassword().equals(existingUser.getPassword())) {
-            user.setPassword(passwordEncoder.encode(user.getPassword())); // Шифруем только если пароль изменился
+//        User existingUser = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        User existingUser = getById(id);
+        // Проверяем, найден ли пользователь
+        if (existingUser == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
+
+        // Если передан новый пароль, шифруем его, иначе оставляем старый
+        if (user.getPassword() != null && !user.getPassword().isEmpty()) {
+            existingUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
+
         // Обновляем все данные пользователя
         existingUser.setFirstName(user.getFirstName());
         existingUser.setLastName(user.getLastName());
         existingUser.setAge(user.getAge());
         existingUser.setUsername(user.getUsername());
-        existingUser.setPassword(user.getPassword());  // Новый зашифрованный пароль, если он был изменен
         existingUser.setRoles(user.getRoles());  // Обновляем роли пользователя
 
         // Сохраняем обновленного пользователя
