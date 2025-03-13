@@ -1,0 +1,6 @@
+.footer {
+    margin-top: auto; /* Это заставит футер оставаться внизу */
+    padding: 5px 0;
+    background-color: #799fbf;
+    text-align: center;
+}

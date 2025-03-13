@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css"> <!-- Подключение локального CSS -->
+    <link rel="stylesheet" href="/css/footer.css"> <!-- Подключение локального CSS -->
+</head>
+<body>
+<header>
+    <nav class="navbar bg-primary navbar-expand-lg">
+        <div class="container-fluid">
+            <div class="ms-auto">
+                <span id="user-name">Имя пользователя</span>
+                <span class="ms-2 text-light">с ролями:</span>
+                <span class="ms-2 text-light" id="user-roles"></span>
+                <form class="ms-auto" action="/logout" method="post">
+                    <button type="submit" class="btn btn-outline-light">Выйти</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main class="container mt-5">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Боковое меню -->
+            <aside class="col-md-2 bg-white p-3 min-vh-100">
+                <ul class="nav flex-column" id="sidebar-roles"></ul>
+            </aside>
+
+            <section class="col-md-10 p-3 mt-5">
+
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#home">Список пользователей</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#addUser">Добавить пользователя</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content mt-3">
+                    <div class="tab-pane fade show active" id="home">
+
+                        <h3>Список пользователей</h3>
+                        <table class="table table-primary table-striped">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Имя Пользователя</th>
+                                <th>Фамилия</th>
+                                <th>Имя</th>
+                                <th>Возраст</th>
+                                <th>Действия</th>
+                            </tr>
+                            </thead>
+                            <tbody id="users-table-body">
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="tab-pane fade" id="addUser">
+                        <div class="container">
+                            <h3 class="text-center">Добавить нового пользователя</h3>
+                            <form id="add-user-form" class="bg-primary-subtle p-4 rounded">
+                                <div class="mb-2">
+                                    <label class="form-label">Имя</label>
+                                    <input type="text" id="firstName" class="form-control" required>
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label">Фамилия</label>
+                                    <input type="text" id="lastName" class="form-control" required>
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label">Возраст</label>
+                                    <input type="number" id="age" class="form-control" required>
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label">Логин</label>
+                                    <input type="text" id="username" class="form-control" required>
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label">Пароль</label>
+                                    <input type="password" id="password" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Роли</label><br>
+                                    <div class="d-flex justify-content-center">
+                                        <div class="form-check">
+                                            <input type="checkbox" id="roleUser" class="form-check-input" checked>
+                                            <label for="roleUser">USER</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" id="roleAdmin" class="form-check-input">
+                                            <label for="roleAdmin">ADMIN</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary ms-auto">Создать</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+    </div>
+</main>
+
+<footer class="footer bg-primary">
+    <div class="container text-center text-light">
+        <p>&copy; 2025 Nikita Obergan</p>
+    </div>
+</footer>
+
+<!-- Модальное окно для удаления пользователя -->
+<!-- Модальное окно для удаления пользователя -->
+<!-- Модальное окно для удаления пользователя -->
+<!-- Модальное окно для удаления пользователя -->
+<!--<div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" inert>-->
+
+<div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteUserModalLabel">Удалить пользователя</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+                <form id="deleteUserForm">
+                    <input type="hidden" id="deleteUserId">
+
+                    <div class="mb-3">
+                        <label class="form-label">Логин</label>
+                        <input type="text" class="form-control" id="deleteUsername" disabled>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Имя</label>
+                        <input type="text" class="form-control" id="deleteFirstName" disabled>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Фамилия</label>
+                        <input type="text" class="form-control" id="deleteLastName" disabled>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Возраст</label>
+                        <input type="number" class="form-control" id="deleteAge" disabled>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Роли</label>
+                        <input type="text" class="form-control" id="deleteRoles" disabled>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Удалить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="/js/admin.js"></script>
+</body>
+</html>
