@@ -22,4 +22,5 @@ public interface UserService extends UserDetailsService {
     boolean delete(Long id);
 
     void updateUserPassword(Long id, String newPassword);
+
 }

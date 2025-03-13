@@ -20,6 +20,19 @@ document.addEventListener("DOMContentLoaded", function () {
                 button.dataset.roles
             );
         }
+
+        // Добавляем обработчик клика по кнопке редактирования
+        if (event.target.classList.contains("edit-btn")) {
+            const button = event.target;
+            openEditPopup(
+                button.dataset.userId,
+                button.dataset.username,
+                button.dataset.firstname,
+                button.dataset.lastname,
+                button.dataset.age,
+                button.dataset.roles
+            );
+        }
     });
 });
 
@@ -39,7 +52,17 @@ function loadUsers() {
                     <td>${user.lastName}</td>
                     <td>${user.firstName}</td>
                     <td>${user.age}</td>
+                    
                     <td>
+                        <button class="btn btn-warning edit-btn"
+                            data-user-id="${user.id}"
+                            data-username="${user.username}"
+                            data-firstname="${user.firstName}"
+                            data-lastname="${user.lastName}"
+                            data-age="${user.age}"
+                            data-roles='${JSON.stringify(user.roles)}'>
+                            Редактировать
+                        </button>
                          <button class="btn btn-danger delete-btn"
                             data-user-id="${user.id}"
                             data-username="${user.username}"
@@ -188,6 +211,89 @@ function deleteUser(userId) {
         .catch(error => {
             console.error("Ошибка при удалении пользователя:", error);
             alert("Ошибка при удалении пользователя.");
+        });
+}
+
+// Открытие модального окна для редактирования пользователя
+function openEditPopup(userId, username, firstName, lastName, age, rolesJson) {
+    console.log("Открытие модального окна для пользователя:", userId, username);
+
+    document.getElementById("editUserId").value = userId;
+    document.getElementById("editUsername").value = username;
+    document.getElementById("editFirstName").value = firstName;
+    document.getElementById("editLastName").value = lastName;
+    document.getElementById("editAge").value = age;
+
+    // Разбираем JSON-строку ролей
+    let rolesArray;
+    try {
+        rolesArray = JSON.parse(rolesJson);
+        console.log("Роли после парсинга:", rolesArray);
+    } catch (e) {
+        console.error("Ошибка парсинга ролей:", e);
+        rolesArray = [];
+    }
+
+    // Предположим, что у вас есть <select> с множественным выбором
+    const roleValues = rolesArray.map(role => role.name);
+    console.log("Выбранные роли:", roleValues);
+
+    const roleOptions = document.getElementById("editRoles").options;
+    for (let i = 0; i < roleOptions.length; i++) {
+        roleOptions[i].selected = roleValues.includes(roleOptions[i].value);
+    }
+
+    // Открываем модальное окно
+    let editModal = new bootstrap.Modal(document.getElementById('editUserModal'));
+    editModal.show();
+
+    // Привязываем обработчик к кнопке "Сохранить"
+    document.getElementById("confirmEditBtn").onclick = function () {
+        const userId = document.getElementById("editUserId").value; // Берем userId из скрытого поля
+        editUser(userId);
+        editModal.hide();  // Закрываем модальное окно
+    };
+}
+
+
+
+// Функция для редактирования пользователя
+// Функция для редактирования пользователя
+function editUser(userId) {
+    const user = {
+        username: document.getElementById("editUsername").value, // Новый username
+        firstName: document.getElementById("editFirstName").value,
+        lastName: document.getElementById("editLastName").value,
+        age: document.getElementById("editAge").value,
+        password: document.getElementById("editPassword").value || undefined, // Новый пароль (необязательный)
+        roles: Array.from(document.getElementById("editRoles").selectedOptions).map(option => option.value) // Роли (например, через селект с множественным выбором)
+    };
+
+    console.log("Данные для обновления пользователя:", user); // Выводим в консоль
+
+    // Если пароль пустой, не отправляем его
+    if (!user.password) {
+        delete user.password;
+    }
+
+
+    fetch(`/api/admin/users/${userId}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(user)
+    })
+        .then(response => {
+            if (response.ok) {
+                loadUsers();
+            } else {
+                console.error("Ошибка при обновлении пользователя:", response);
+                response.text().then(text => console.error("Текст ошибки:", text));
+            }
+        })
+        .catch(error => {
+            console.error("Ошибка:", error);
         });
 }
 

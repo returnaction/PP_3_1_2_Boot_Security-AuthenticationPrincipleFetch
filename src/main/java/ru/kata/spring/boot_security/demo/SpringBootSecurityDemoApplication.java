@@ -14,7 +14,7 @@ public class SpringBootSecurityDemoApplication {
 		// TODO сделать может что бы использовалась одна и таже форма для регистрации и add user в admin
 		// TODO сделать когда зарегестрировался что бы сразу переходила к /login
 		// TODO при логине посенять что бы перенаправляло на /user а не сюда http://localhost:8091/api/user
-		// TODO
+		// TODO добавить проверку что бы проерял если есть такой логин перед тем как редактировать его
 
 //		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 //		String rawPassword = "admin";

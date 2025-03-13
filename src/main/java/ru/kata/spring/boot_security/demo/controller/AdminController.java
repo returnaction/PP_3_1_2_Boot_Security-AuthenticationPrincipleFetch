@@ -40,10 +40,10 @@ public class AdminController {
         return ResponseEntity.ok("User " + user.getUsername() +  " added successfully");
     }
 
-    @PutMapping("/users/{id}")
-    public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody User user){
+    @PutMapping("/users/{userId}")
+    public ResponseEntity<String> updateUser(@PathVariable Long userId, @RequestBody User user){
         try{
-            userService.update(id, user);
+            userService.update(userId, user);
             return ResponseEntity.ok("User " + user.getUsername() + " updated successfully");
         } catch(Exception e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");

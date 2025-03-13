@@ -94,7 +94,9 @@ public class UserServiceImpl implements UserService {
     }
 
     public void update(Long id, User user) {
-        User existingUser = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        Long userId = id;
+        System.out.println("User id is : " + userId);
+        User existingUser = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         if (!user.getPassword().equals(existingUser.getPassword())) {
             user.setPassword(passwordEncoder.encode(user.getPassword())); // Шифруем только если пароль изменился
         }

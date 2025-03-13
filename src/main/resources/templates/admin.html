@@ -121,10 +121,6 @@
 
 <!-- Модальное окно для удаления пользователя -->
 <!-- Модальное окно для удаления пользователя -->
-<!-- Модальное окно для удаления пользователя -->
-<!-- Модальное окно для удаления пользователя -->
-<!--<div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" inert>-->
-
 <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -170,6 +166,63 @@
         </div>
     </div>
 </div>
+
+<!-- Модальное окно для редактирования пользователя -->
+<div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editUserModalLabel">Редактировать пользователя</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editUserForm">
+                    <input type="hidden" id="editUserId">
+
+                    <div class="mb-3">
+                        <label class="form-label">Логин</label>
+                        <input type="text" class="form-control" id="editUsername" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Имя</label>
+                        <input type="text" class="form-control" id="editFirstName" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Фамилия</label>
+                        <input type="text" class="form-control" id="editLastName" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Возраст</label>
+                        <input type="number" class="form-control" id="editAge" required>
+                    </div>
+
+                    <!-- Множественный выбор ролей -->
+                    <div class="mb-3">
+                        <label class="form-label">Роли</label>
+                        <select class="form-control" id="editRoles" multiple>
+                            <!-- Опции ролей будут вставляться динамически через JavaScript -->
+                        </select>
+                    </div>
+
+                    <!-- Поле для редактирования пароля -->
+                    <div class="mb-3">
+                        <label class="form-label">Новый пароль</label>
+                        <input type="password" class="form-control" id="editPassword">
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                        <button type="button" class="btn btn-primary" id="confirmEditBtn">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 
