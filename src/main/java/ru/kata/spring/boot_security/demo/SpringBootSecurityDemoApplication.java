@@ -15,6 +15,7 @@ public class SpringBootSecurityDemoApplication {
 		// TODO сделать когда зарегестрировался что бы сразу переходила к /login
 		// TODO при логине посенять что бы перенаправляло на /user а не сюда http://localhost:8091/api/user
 		// TODO добавить проверку что бы проерял если есть такой логин перед тем как редактировать его
+		// TODO когда нажимаешь на кнопку выйти что бы пользователь стал не аунтефицирован. и переходило на /login
 
 //		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 //		String rawPassword = "admin";
