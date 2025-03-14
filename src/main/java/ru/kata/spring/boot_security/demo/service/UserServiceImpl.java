@@ -95,13 +95,13 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(id).orElse(null);
     }
 
-    public void update(Long id, User user) {
-//        User existingUser = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-        User existingUser = getById(id);
+    public void update(Long userId, User user) {
+        User existingUser = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+//        User existingUser = getById(id);
         // Проверяем, найден ли пользователь
-        if (existingUser == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
-        }
+//        if (existingUser == null) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+//        }
 
         // Если передан новый пароль, шифруем его, иначе оставляем старый
         if (user.getPassword() != null && !user.getPassword().isEmpty()) {
@@ -114,6 +114,14 @@ public class UserServiceImpl implements UserService {
         existingUser.setAge(user.getAge());
         existingUser.setUsername(user.getUsername());
         existingUser.setRoles(user.getRoles());  // Обновляем роли пользователя
+
+//        // Обновляем роли, загружая их из БД
+//        Set<Role> updatedRoles = Optional.ofNullable(user.getRoles())
+//                .orElse(existingUser.getRoles())
+//                .stream()
+//                .map(role -> roleRepository.findByName(role.getName())) // Загружаем реальные роли
+//                .collect(Collectors.toSet());
+//        existingUser.setRoles(updatedRoles);
 
         // Сохраняем обновленного пользователя
         userRepository.save(existingUser);

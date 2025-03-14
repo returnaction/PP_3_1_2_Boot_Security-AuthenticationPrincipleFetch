@@ -224,34 +224,43 @@ function openEditPopup(userId, username, firstName, lastName, age, rolesJson) {
     document.getElementById("editLastName").value = lastName;
     document.getElementById("editAge").value = age;
 
-    // Разбираем JSON-строку ролей
-    let rolesArray;
+    let userRoles = [];
+
     try {
-        rolesArray = JSON.parse(rolesJson);
-        console.log("Роли после парсинга:", rolesArray);
+        userRoles = JSON.parse(rolesJson).map(role => role.name); // Парсим роли пользователя
     } catch (e) {
         console.error("Ошибка парсинга ролей:", e);
-        rolesArray = [];
     }
 
-    // Предположим, что у вас есть <select> с множественным выбором
-    const roleValues = rolesArray.map(role => role.name);
-    console.log("Выбранные роли:", roleValues);
+    const select = document.getElementById("editRoles");
+    if (!select) return;
+    select.innerHTML = ""; // Очищаем перед вставкой новых данных
 
-    const roleOptions = document.getElementById("editRoles").options;
-    for (let i = 0; i < roleOptions.length; i++) {
-        roleOptions[i].selected = roleValues.includes(roleOptions[i].value);
-    }
+    // Предопределенные роли
+    const roles = [
+        { id: 1, name: "USER" },
+        { id: 2, name: "ADMIN" }
+    ];
 
-    // Открываем модальное окно
+    roles.forEach(role => {
+        const option = document.createElement("option");
+        option.value = role.id;
+        option.textContent = role.name;
+
+        // Если у пользователя есть эта роль — выбираем её
+        if (userRoles.includes(role.name)) {
+            option.selected = true;
+        }
+
+        select.appendChild(option);
+    });
+
     let editModal = new bootstrap.Modal(document.getElementById('editUserModal'));
     editModal.show();
 
-    // Привязываем обработчик к кнопке "Сохранить"
     document.getElementById("confirmEditBtn").onclick = function () {
-        const userId = document.getElementById("editUserId").value; // Берем userId из скрытого поля
         editUser(userId);
-        editModal.hide();  // Закрываем модальное окно
+        editModal.hide();
     };
 }
 
