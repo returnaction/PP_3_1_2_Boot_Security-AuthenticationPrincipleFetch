@@ -3,16 +3,16 @@ html, body {
     margin: 0;
 }
 
-.container {
-    min-height: 100%;
+.wrapper {
+    /*min-height: 100vh;*/
     display: flex;
     flex-direction: column;
+    height: 100%
 }
 
 main {
-    flex: 1; /* Заставляет main растягиваться и выталкивать footer вниз */
+    flex-grow: 1; /* Заставляет main растягиваться и выталкивать footer вниз */
 }
-
 /*side bar*/
 /* Стили для sidebar */
 #sidebar-roles {

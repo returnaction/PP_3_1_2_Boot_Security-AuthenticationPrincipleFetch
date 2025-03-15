@@ -24,28 +24,9 @@ public class RegistrationController {
             userService.add(user);
             return ResponseEntity.ok(user);
         } catch (IllegalArgumentException e) {
+            e.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
     }
 }
-//    @Autowired
-//    private UserService userService;
-//
-//    @GetMapping("/register")
-//    public String register(Model model){
-//        model.addAttribute("user", new User());
-//        return "register";
-//    }
-//
-//    @PostMapping("/register")
-//    public String register(@ModelAttribute User user){
-//
-//        try{
-//            userService.add(user, Collections.singletonList(1L));
-//        } catch (IllegalArgumentException e){
-//            return "redirect:/register";
-//        }
-//
-//        return "redirect:/login";
-//    }
 

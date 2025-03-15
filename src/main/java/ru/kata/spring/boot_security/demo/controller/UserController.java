@@ -23,31 +23,4 @@ public class UserController {
     }
 }
 
-//@Controller
-//@RequestMapping("/user")
-//public class UserController {
-//
-//    private final UserService userService;
-//
-//    @Autowired
-//    public UserController(UserService userService) {
-//        this.userService = userService;
-//    }
-//
-//    @GetMapping
-//    public String userPage(@AuthenticationPrincipal User user, Model model) {
-//        model.addAttribute("user", user);
-//        model.addAttribute("users", List.of(user));
-//        model.addAttribute("selectedRole", "USER");
-//        return "user";
-//    }
-//}
-
-
-//    @PostMapping("/update")
-//    public String updateUser(@RequestParam Long id, @RequestParam String firstName,
-//                             @RequestParam String lastName, @RequestParam int age) {
-//        userService.updateUserDetails(id, firstName, lastName, age, );
-//        return "redirect:/user";
-//    }
 
