@@ -11,15 +11,15 @@
 <body>
 <header>
     <nav class="navbar bg-primary navbar-expand-lg">
-        <div class="container-fluid">
-            <div class="ms-auto">
-                <span id="user-name">Имя пользователя</span>
+        <div class="container-fluid d-flex justify-content-between">
+            <div class="d-flex align-items-center">
+                <span id="user-name" class="text-light">Имя пользователя</span>
                 <span class="ms-2 text-light">с ролями:</span>
                 <span class="ms-2 text-light" id="user-roles"></span>
-                <form class="ms-auto" action="@{/logout}" method="post">
-                    <button type="submit" class="btn btn-outline-light">Выйти</button>
-                </form>
             </div>
+            <form action="/logout" method="post">
+                <button type="submit" class="btn btn-outline-light">Выйти</button>
+            </form>
         </div>
     </nav>
 </header>
