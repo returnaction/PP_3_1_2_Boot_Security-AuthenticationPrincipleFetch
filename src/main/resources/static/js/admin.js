@@ -97,9 +97,14 @@ function loadAuthenticatedUser() {
             if (sidebar) {
                 sidebar.innerHTML = "";
                 user.roles.forEach(role => {
-                    sidebar.innerHTML +=
-                        `<li class="nav-item">
-                            <a class="nav-link" href="/${role.name.toLowerCase()}">${role.name}</a>
+                    const rolePath = `/${role.name.toLowerCase()}`;
+                    const isActive = window.location.pathname === rolePath; // Проверяем текущий URL
+
+                    sidebar.innerHTML += `
+                        <li class="nav-item">
+                            <a class="nav-link ${isActive ? "active text-white bg-primary" : ""}" href="${rolePath}">
+                                ${role.name}
+                            </a>
                         </li>`;
                 });
             }
@@ -112,6 +117,38 @@ function loadAuthenticatedUser() {
         })
         .catch(error => console.error("Ошибка загрузки аутентифицированного пользователя:", error));
 }
+
+// function loadAuthenticatedUser() {
+//     fetch("/api/user")
+//         .then(response => response.json())
+//         .then(user => {
+//             console.log("Аутентифицированный пользователь:", user);
+//
+//             if (!user.roles || user.roles.length === 0) {
+//                 console.error("Роли отсутствуют в ответе сервера:", user);
+//                 return;
+//             }
+//
+//             // Обновляем sidebar
+//             const sidebar = document.getElementById("sidebar-roles");
+//             if (sidebar) {
+//                 sidebar.innerHTML = "";
+//                 user.roles.forEach(role => {
+//                     sidebar.innerHTML +=
+//                         `<li class="nav-item">
+//                             <a class="nav-link" href="/${role.name.toLowerCase()}">${role.name}</a>
+//                         </li>`;
+//                 });
+//             }
+//
+//             // Обновляем navbar
+//             const userNameElement = document.getElementById("user-name");
+//             const userRolesElement = document.getElementById("user-roles");
+//             if (userNameElement) userNameElement.textContent = user.username;
+//             if (userRolesElement) userRolesElement.textContent = user.roles.map(r => r.name).join(", ");
+//         })
+//         .catch(error => console.error("Ошибка загрузки аутентифицированного пользователя:", error));
+// }
 
 
 // Функция добавления нового пользователя

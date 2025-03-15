@@ -12,3 +12,35 @@ html, body {
 main {
     flex: 1; /* Заставляет main растягиваться и выталкивать footer вниз */
 }
+
+/*side bar*/
+/* Стили для sidebar */
+#sidebar-roles {
+    background-color: #ffffff;
+    border-right: 2px solid #ddd;
+    padding: 15px;
+    position: fixed;
+    top: 75px; /* Чтобы не перекрывать header */
+    left: 0;
+    width: 250px;
+    height: calc(100vh - 56px); /* Высота на весь экран минус высота header */
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+/* Стили для nav-ролей */
+#sidebar-roles .nav-link {
+    font-size: 1.1rem;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+#sidebar-roles .nav-link:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+#sidebar-roles .nav-link.active {
+    background-color: #007bff;
+    color: white;
+}
