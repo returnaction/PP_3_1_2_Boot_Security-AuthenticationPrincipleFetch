@@ -8,3 +8,7 @@ html, body {
     display: flex;
     flex-direction: column;
 }
+
+main {
+    flex: 1; /* Заставляет main растягиваться и выталкивать footer вниз */
+}

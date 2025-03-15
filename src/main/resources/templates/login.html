@@ -9,58 +9,44 @@
     <link rel="stylesheet" href="/css/footer.css"> <!-- Подключение локального CSS -->
 </head>
 <body>
-<header>
-    <nav class="navbar bg-primary navbar-expand-lg">
-        <div class="container-fluid">
-            <div class="ms-auto">
-                <a href="/login" class="btn btn-outline-light">Логин</a>
-                <a href="/register" class="btn btn-outline-light">Регистрация</a>
+<div class="wrapper d-flex flex-column min-vh-100"> <!-- min-vh-100 делает контейнер на всю высоту -->
+    <header>
+        <nav class="navbar bg-primary navbar-expand-lg">
+            <div class="container-fluid">
+                <div class="ms-auto">
+                    <a href="/login" class="btn btn-outline-light">Логин</a>
+                    <a href="/register" class="btn btn-outline-light">Регистрация</a>
+                </div>
             </div>
-        </div>
-    </nav>
-</header>
+        </nav>
+    </header>
 
-<main class="container mt-5">
-    <h2>Login</h2>
-    <form id="loginForm" th:action="@{/login}" method="post">
-        <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
-            <input type="text" id="username" name="username" class="form-control" required>
-        </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" id="password" name="password" class="form-control" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Login</button>
-    </form>
-    <div th:if="${param.error}" class="alert alert-danger mt-3">Invalid username or password</div>
-    <div th:if="${param.logout}" class="alert alert-info mt-3">You have been logged out</div>
-</main>
+    <main class="container flex-grow-1 mt-5">
+        <h2>Login</h2>
+        <form id="loginForm" th:action="@{/login}" method="post">
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" id="username" name="username" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" id="password" name="password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+        <div th:if="${param.error}" class="alert alert-danger mt-3">Invalid username or password</div>
+        <div th:if="${param.logout}" class="alert alert-info mt-3">You have been logged out</div>
+    </main>
 
-<footer class="footer bg-primary">
-    <div class="container text-center text-light">
-        <p>&copy; 2025 Nikita Obergan</p>
-    </div>
-</footer>
-
+    <footer class="footer bg-primary text-center text-light py-3">
+        <div class="container">
+            <p>&copy; 2025 Nikita Obergan</p>
+        </div>
+    </footer>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-<!--<script src="/js/loginTemp.js"></script>-->
 </body>
 </html>
 
 
-<!--<main class="container mt-5">-->
-<!--    <h2>Login</h2>-->
-<!--    <form action="/login" id="loginForm">-->
-<!--        <div class="mb-3">-->
-<!--            <label for="username" class="form-label">Username</label>-->
-<!--            <input type="text" class="form-control" id="username" name="username" required>-->
-<!--        </div>-->
-<!--        <div class="mb-3">-->
-<!--            <label for="password" class="form-label">Password</label>-->
-<!--            <input type="password" class="form-control" id="password" name="password" required>-->
-<!--        </div>-->
-<!--        <button type="submit" class="btn btn-primary">Login</button>-->
-<!--    </form>-->
-<!--    <div id="message" class="mt-3"></div>-->
-<!--</main>-->
+
