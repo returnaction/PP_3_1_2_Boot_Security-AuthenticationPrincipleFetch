@@ -8,7 +8,7 @@ public class SpringBootSecurityDemoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootSecurityDemoApplication.class, args);
-		// TODO при регистрации нового пользователя форма не очищается
+		// done при регистрации нового пользователя форма не очищается
 		// TODO когда регистрируюсь проверить что пароли совпадают на фронте
 		// TODO сделать Роли покрасивее в ADMIN add new user
 		// TODO сделать может что бы использовалась одна и таже форма для регистрации и add user в admin
@@ -17,10 +17,6 @@ public class SpringBootSecurityDemoApplication {
 		// TODO добавить проверку что бы проерял если есть такой логин перед тем как редактировать его
 		// TODO когда нажимаешь на кнопку выйти что бы пользователь стал не аунтефицирован. и переходило на /login
 
-//		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//		String rawPassword = "admin";
-//		String encodedPassword = encoder.encode(rawPassword);
-//		System.out.println(encodedPassword);
 	}
 
 

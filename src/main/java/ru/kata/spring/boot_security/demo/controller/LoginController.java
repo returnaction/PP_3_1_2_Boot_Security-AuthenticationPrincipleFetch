@@ -27,16 +27,22 @@ public class LoginController {
     }
 
     @PostMapping
-    public void login(@RequestBody Map<String, String> credentials, HttpServletResponse response) throws IOException {
+    public ResponseEntity<Map<String, String>> login(@RequestBody Map<String, String> credentials) throws IOException {
         String username = credentials.get("username");
         String password = credentials.get("password");
 
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(username, password));
+                new UsernamePasswordAuthenticationToken(username, password)
+        );
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        response.setContentType("application/json");
-        response.getWriter().write("{\"redirectUrl\": \"/api/user\"}");
+        String redirectUrl = "/user";
+        if (authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
+            redirectUrl = "/admin";
+        }
+
+        Map<String, String> response = Map.of("redirectUrl", redirectUrl);
+        return ResponseEntity.ok(response);
     }
 }
 
