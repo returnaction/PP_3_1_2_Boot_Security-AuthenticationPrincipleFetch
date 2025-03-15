@@ -22,20 +22,22 @@
     </header>
 
     <main class="container flex-grow-1 mt-5">
-        <h2>Login</h2>
-        <form id="loginForm" th:action="@{/login}" method="post">
-            <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" id="username" name="username" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" id="password" name="password" class="form-control" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Login</button>
-        </form>
-        <div th:if="${param.error}" class="alert alert-danger mt-3">Invalid username or password</div>
-        <div th:if="${param.logout}" class="alert alert-info mt-3">You have been logged out</div>
+        <h2 class="text-center">Login</h2>
+        <div class="d-flex justify-content-center">
+            <form id="loginForm" th:action="@{/login}" method="post" class="bg-secondary-subtle p-4 rounded" style="max-width: 400px; width: 100%;">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" id="username" name="username" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" name="password" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Login</button>
+            </form>
+        </div>
+        <div th:if="${param.error}" class="alert alert-danger mt-3 text-center">Invalid username or password</div>
+        <div th:if="${param.logout}" class="alert alert-info mt-3 text-center">You have been logged out</div>
     </main>
 
     <footer class="footer bg-primary text-center text-light py-3">
